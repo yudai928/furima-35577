@@ -2,13 +2,15 @@
 
 ## users テーブル
 
-| Column     | Type    | Options     |
-| ---------  | ------  | ----------- |
-| nickname   | string  | null: false |
-| email      | string  | null: false |
-| name_kanji | text    | null: false |
-| name_kana  | text    | null: false |
-| birthday   | integer | null: false |
+| Column           | Type    | Options       |
+| ---------        | ------  | -----------   |
+| nickname         | string  | null  : false |
+| email            | string  | unique: true  |
+| name_kanji       | string  | null  : false |
+| name_kana        | string  | null  : false |
+| birthday_year    | integer | null  : false |
+| birthday_month   | integer | null  : false |
+| birthday_date    | integer | null  : false |
 
 ### Association
 
@@ -21,12 +23,11 @@
 | --------------| ------     | ----------- |
 | name          | string     | null: false |
 | price         | integer    | null: false |
-| image         | 
 | seller        | string     | null: false |
 | description   | text       | null: false |
-| category      | string     | null: false |
+| category      | integer    | null: false |
 | shipping_rate | integer    | null: false |
-| shipping_area | string     | null: false |
+| shipping_area | integer    | null: false |
 | shipping_days | integer    | null: false |
 | user          | references | null: false, foreign_key: true |
 
@@ -41,9 +42,6 @@
 | ------              | ---------- | ------------------------------ |
 | content             | string     | null: false |
 | amounts             | integer    | null: false |
-| card_number         | integer    | null: false |
-| card_expiration     | integer    | null: false |
-| card_security_cord  | integer    | null: false |
 | user                | references | null: false, foreign_key: true |
 | item                | references | null: false, foreign_key: true |
 
@@ -54,18 +52,18 @@
 - belongs_to :item
 - has_one :address
 
-## address テーブル
+## addresses テーブル
 
 | Column           | Type       | Options                        |
 | -------          | ---------- | ------------------------------ |
-| post_code        | integer    |                                |
-| prefectures      | string     |                                |
-| municipalities   | string     |                                |
-| block            | string     |                                |
-| building         | string     |                                |
-| telephone_number | integer    |                                |
+| postal_code      | integer    | null: false |
+| prefecture       | string     | null: false |
+| city             | string     | null: false |
+| house_number     | string     | null: false |
+| building_nama    | string     | null: false |
+| telephone_number | integer    | null: false |
 | order            | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :orders
+- belongs_to :order
