@@ -47,13 +47,15 @@ RSpec.describe User, type: :model do
     end
     it 'passwordは半角英語のみだと登録できない' do
       @user.password = 'abcdef'
+      @user.password_confirmation = 'abcdef'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      expect(@user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
     end
     it 'passwordは数字のみだと登録できない' do
       @user.password = '123456'
+      @user.password_confirmation = '123456'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      expect(@user.errors.full_messages).to include("Password には英字と数字の両方を含めて設定してください")
     end
     it 'password_confirmationが空では登録できない' do
       @user.password_confirmation = ''
@@ -90,8 +92,13 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Last name kana can't be blank")
     end
-    it 'last_name_kanaは全角カタカタ以外では登録できない' do
-      @user.last_name_kana = 'aaa'
+    it 'last_name_kanaは半角文字では登録できない' do
+      @user.last_name_kana = 'ｱｲｳｴｵ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Last name kana 全角カタカナのみで入力して下さい')
+    end
+    it 'last_name_kanaは全角カタカナ以外の全角文字では登録できない' do
+      @user.last_name_kana = 'あいうえお'
       @user.valid?
       expect(@user.errors.full_messages).to include('Last name kana 全角カタカナのみで入力して下さい')
     end
@@ -100,8 +107,13 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana can't be blank")
     end
-    it 'first_name_kanaは全角カタカナ以外登録できない' do
-      @user.first_name_kana = 'aaa'
+    it 'first_name_kanaは半角文字では登録できない' do
+      @user.first_name_kana = 'ｱｲｳｴｵ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('First name kana 全角カタカナのみで入力して下さい')
+    end
+    it 'first_name_kanaは全角カタカナ以外の全角文字では登録できない' do
+      @user.first_name_kana = 'あいうえお'
       @user.valid?
       expect(@user.errors.full_messages).to include('First name kana 全角カタカナのみで入力して下さい')
     end
