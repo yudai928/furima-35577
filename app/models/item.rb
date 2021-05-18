@@ -5,7 +5,6 @@ class Item < ApplicationRecord
   belongs_to :shipping_rate
   belongs_to :shipping_area
   #belongs_to :user
-
   has_one_attached :image
 
   with_options presence: true do
@@ -13,7 +12,6 @@ class Item < ApplicationRecord
     validates :price
     validates :description
   end
-
     
   with_options numericality: { other_than: 1 } do
     validates :category_id
@@ -23,4 +21,8 @@ class Item < ApplicationRecord
   end
 
     validates :shipping_area_id, numericality: { other_than: 0 }
+    validates :price, numericality: {greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
+    validates :price, format: {with: /\A[-]?[0-9]+(\.[0-9]+)?\z/, message: "半角数字のみで入力してください"}
+
 end
+
