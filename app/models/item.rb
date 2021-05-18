@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   belongs_to :condition
   belongs_to :shipping_rate
   belongs_to :shipping_area
+  belongs_to :shipping_day
   belongs_to :user
   has_one_attached :image
 
