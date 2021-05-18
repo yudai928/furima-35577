@@ -4,7 +4,7 @@ class Item < ApplicationRecord
   belongs_to :condition
   belongs_to :shipping_rate
   belongs_to :shipping_area
-  #belongs_to :user
+  belongs_to :user
   has_one_attached :image
 
   with_options presence: true do

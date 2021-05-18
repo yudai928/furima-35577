@@ -28,34 +28,34 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Description can't be blank")
       end
       it '商品の画像が空では出品できない' do
-        @item.image = []
+        @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include()
       end
-      it '商品のカテゴリーを選択しなければ出品できない' do
-        @item.category_id = ''
+      it 'category_idが1だと出品できない' do
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category is not a number")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
-      it '商品の状態を選択しなければ出品できない' do
-        @item.condition_id = ''
+      it 'condition_idが1だと出品できない' do
+        @item.condition_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition is not a number")
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
-      it '商品の配送料の負担を選択しなければ出品できない' do
-        @item.shipping_rate_id = ''
+      it 'shiiping_rate_idが1だと出品できない' do
+        @item.shipping_rate_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping rate is not a number")
+        expect(@item.errors.full_messages).to include("Shipping rate must be other than 1")
       end
-      it '商品の発送元を選択しなければ出品できない' do
-        @item.shipping_area_id = ''
+      it 'shipping_are_idが0だと出品できない' do
+        @item.shipping_area_id = 0
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping area is not a number")
+        expect(@item.errors.full_messages).to include("Shipping area must be other than 0")
       end
-      it '商品の配送日数を選択しなければ出品できない' do
-        @item.shipping_day_id = ''
+      it 'shipping_day_idが1だと出品できない' do
+        @item.shipping_day_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping day is not a number")
+        expect(@item.errors.full_messages).to include("Shipping day must be other than 1")
       end
       it '商品の販売価格は300円以上でなければ出品できない' do
         @item.price = '299'
@@ -71,6 +71,11 @@ RSpec.describe Item, type: :model do
         @item.price = '３００'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'userが紐づいていなければ出品できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
       end
     end
   end
