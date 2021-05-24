@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.describe OrderAddress, type: :model do
   before do
     user = FactoryBot.create(:user)
@@ -87,3 +85,4 @@ RSpec.describe OrderAddress, type: :model do
     end
   end
 end
+

@@ -1,4 +1,4 @@
-class OrderAddress < ApplicationRecord
+class OrderAddress
   include ActiveModel::Model
   attr_accessor :postal_code, :shipping_area_id, :city, :house_number, :building_name, :telephone_number, :user_id, :item_id,
                 :token
